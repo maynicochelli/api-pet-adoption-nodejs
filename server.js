@@ -1,97 +1,74 @@
-import express from 'express'
-import { PrismaClient } from '@prisma/client'
+import express from "express";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000')
-})
+  console.log("Server is running on port 3000");
+});
 
-app.post('/pets', async (req, res) => {
+app.post("/pets", async (req, res) => {
+  try {
+    const pet = await prisma.pet.create({
+      data: {
+        name: req.body.name,
+      },
+    });
 
-    await prisma.pet.create({
-        data: {
-            name: req.body.name
-        }
-    })
+    res.status(201).json(pet);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while executing POST method." });
+  }
+});
 
-    // Response status + resource created
-    res.status(201).json(req.body)
-})
+app.get("/pets", async (req, res) => {
+  try {
+    let pets = [];
 
-app.get('/pets', async (req, res) => {
-
-    const pets = []
-
-    if(req.query){
-        // Filter
-        pets = await prisma.pet.findMany({
-            where: {
-                name: req.query.name
-            }
-        })
+    if (req.query.name) {
+      pets = await prisma.pet.findMany({
+        where: {
+          name: req.query.name,
+        },
+      });
     } else {
-        pets = await prisma.pet.findMany()
+      pets = await prisma.pet.findMany();
     }
 
-    res.status(200).json(pets)
-})
+    res.status(200).json(pets);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while executing GET method." });
+  }
+});
 
-app.put('/pets/:id', async (req, res) => {
+app.put("/pets/:id", async (req, res) => {
+  await prisma.pet.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      name: req.body.name,
+    },
+  });
 
-    await prisma.pet.update({
-        where: {
-            id: req.params.id
-        },
-        data: {
-            name: req.body.name
-        }
-    })
+  res.status(201).json(req.body);
+});
 
-    res.status(201).json(req.body)
-})
+app.delete("/pets/:id", async (req, res) => {
+  await prisma.pet.delete({
+    where: {
+      id: req.params.id,
+    },
+  });
 
-app.delete('/pets/:id', async (req, res) => {
-    await prisma.pet.delete({
-        where: {
-            id: req.params.id
-        }
-    })
-
-    res.status(200).json({ message: 'Pet deleted from db'})
-})
-
-// MONGODB CONNECTION TEST
-//import { MongoClient } from 'mongodb';
-//const uri = process.env.DATABASE_URL;
-//async function testConnection() {
-//    const client = new MongoClient(uri);
-//    try {
-//        await client.connect();
-//        console.log("Connected to MongoDB");
-//    } catch (error) {
-//        console.error("Connection failed", error);
-//    } finally {
-//        await client.close();
-//    }
-//}
-//testConnection();
-
-//async function main() {
-//   const newPet = await prisma.pet.create({
-//        data: {
-//            name: "Test"
-//        }
-//    })
-//    console.log("Pet test created")
-//}
-//main ()
-//    .catch(e => {
-//        throw e;
-//    })
-//    .finally(async () => {
-//        await prisma.$disconnect();
-//   });
+  res.status(200).json({ message: "Pet deleted from DB." });
+});
