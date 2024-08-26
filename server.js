@@ -21,6 +21,7 @@ app.post("/pets", async (req, res) => {
         age: req.body.age,
         status: req.body.status,
         desc: req.body.desc,
+        image_url: req.body.image_url,
       },
     });
 
@@ -64,8 +65,13 @@ app.put("/pets/:id", async (req, res) => {
       },
       data: {
         name: req.body.name,
-        status: req.body.status,
+        gender: req.body.gender,
+        species: req.body.species,
+        breed: req.body.breed,
         age: req.body.age,
+        status: req.body.status,
+        desc: req.body.desc,
+        image_url: req.body.image_url,
       },
     });
 

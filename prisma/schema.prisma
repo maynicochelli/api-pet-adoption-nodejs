@@ -23,4 +23,5 @@ model Pet {
   age       Int?
   status    String
   desc      String?
+  image_url String?
 }
