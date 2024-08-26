@@ -10,5 +10,5 @@ app.put("/pets/:id", petController.updatePet);
 app.delete("/pets/:id", petController.deletePet);
 
 app.listen(3000, () => {
-  console.log("Aplication is running on port 3000");
+  console.log("Server is running on port 3000");
 });
