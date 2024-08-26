@@ -4,7 +4,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const app = express()
-app.use(express.json)
+app.use(express.json())
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000')
+})
 
 app.post('/pets', async (req, res) => {
 
@@ -57,7 +61,5 @@ app.delete('/pets/:id', async (req, res) => {
         }
     })
 
-    res.status(200).json({ message: 'pet deleted'})
+    res.status(200).json({ message: 'Pet deleted from db'})
 })
-
-app.listen(3000)
