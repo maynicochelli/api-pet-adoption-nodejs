@@ -63,3 +63,35 @@ app.delete('/pets/:id', async (req, res) => {
 
     res.status(200).json({ message: 'Pet deleted from db'})
 })
+
+// MONGODB CONNECTION TEST
+//import { MongoClient } from 'mongodb';
+//const uri = process.env.DATABASE_URL;
+//async function testConnection() {
+//    const client = new MongoClient(uri);
+//    try {
+//        await client.connect();
+//        console.log("Connected to MongoDB");
+//    } catch (error) {
+//        console.error("Connection failed", error);
+//    } finally {
+//        await client.close();
+//    }
+//}
+//testConnection();
+
+//async function main() {
+//   const newPet = await prisma.pet.create({
+//        data: {
+//            name: "Test"
+//        }
+//    })
+//    console.log("Pet test created")
+//}
+//main ()
+//    .catch(e => {
+//        throw e;
+//    })
+//    .finally(async () => {
+//        await prisma.$disconnect();
+//   });
