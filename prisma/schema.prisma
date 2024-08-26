@@ -17,11 +17,10 @@ datasource db {
 model Pet {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String     @unique
+  gender    String
+  species   String?
   breed     String?
+  age       Int?
+  status    String
+  desc      String?
 }
-
-//  species   String
-//  breed     String?
-//  age       Int?
-//  status    String
-//  desc      String?

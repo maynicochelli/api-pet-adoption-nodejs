@@ -15,6 +15,12 @@ app.post("/pets", async (req, res) => {
     const pet = await prisma.pet.create({
       data: {
         name: req.body.name,
+        gender: req.body.gender,
+        species: req.body.species,
+        breed: req.body.breed,
+        age: req.body.age,
+        status: req.body.status,
+        desc: req.body.desc,
       },
     });
 
@@ -51,24 +57,40 @@ app.get("/pets", async (req, res) => {
 });
 
 app.put("/pets/:id", async (req, res) => {
-  await prisma.pet.update({
-    where: {
-      id: req.params.id,
-    },
-    data: {
-      name: req.body.name,
-    },
-  });
+  try {
+    await prisma.pet.update({
+      where: {
+        id: req.params.id,
+      },
+      data: {
+        name: req.body.name,
+        status: req.body.status,
+        age: req.body.age,
+      },
+    });
 
-  res.status(201).json(req.body);
+    res.status(201).json(req.body);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while executing PUT method." });
+  }
 });
 
 app.delete("/pets/:id", async (req, res) => {
-  await prisma.pet.delete({
-    where: {
-      id: req.params.id,
-    },
-  });
+  try {
+    await prisma.pet.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-  res.status(200).json({ message: "Pet deleted from DB." });
+    res.status(200).json({ message: "Pet deleted from DB." });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while executing DELETE method." });
+  }
 });
