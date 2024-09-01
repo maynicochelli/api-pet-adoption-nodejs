@@ -1,3 +1,17 @@
-# api-pet-adoption-nodejs
+# <p align="center">Pet Adoption API</p>
+  🛠️
+.
 
-SOLID
+## 💻Features    
+- 🛠️
+- 🛠️
+
+## Languages and Tools:
+🛠️
+
+## Diagram:
+🛠️
+
+## 👩‍💻 Author
+#### Mayara Nicochelli
+- Github: [@maynicochelli](https://github.com/maynicochelli)
