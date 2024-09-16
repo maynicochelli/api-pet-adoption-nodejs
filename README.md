@@ -39,8 +39,8 @@ POST /pets
 | `gender`  | `string` | **Required**. Pet gender   |
 | `species`| `string` | **Optional**. Pet species |
 | `breed`| `string` | **Optional**. Pet breed |
-| `age`| `string` | **Optional**. Pet age |
-| `status`| `string` | **Required**. Adoption status |
+| `age`| `number` | **Optional**. Pet age |
+| `status`| `bolean` | **Required**. Adoption status |
 | `desc`| `string` | **Optional**. Pet behaviour description |
 | `image_url`| `string` | **Optional**. Pet image |
 
